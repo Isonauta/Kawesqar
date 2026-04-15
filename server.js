@@ -55,7 +55,7 @@ IMPORTANTE: Si no conoces una palabra, indícalo claramente. Nunca inventes tér
 
 Responde de forma concisa (máximo 3 oraciones), educativa y con calidez cultural. Cuando sea relevante, menciona que la fuente es el diccionario de Aguilera y Tonko (2005).`;
 
-app.post('/api/chat', async (req, res) => {
+app.post('/api/kawesqar', async (req, res) => {
   const { mensaje } = req.body;
   if (!mensaje) return res.status(400).json({ error: 'Mensaje requerido' });
 
@@ -68,7 +68,7 @@ app.post('/api/chat', async (req, res) => {
     });
 
     const texto = response.content[0].text;
-    res.json({ respuesta: texto });
+    res.json({ reply: texto });
 
   } catch (err) {
     console.error('Error:', err.message);
