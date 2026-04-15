@@ -7,590 +7,113 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #0f1f14;
-    --deep: #1a5c3a;
-    --surface: #163d28;
-    --verde: #1a5c3a;
-    --acento: #4dc87a;
-    --marino: #1a2b5c;
-    --foam: #ffffff;
-    --hueso: #e8f4ec;
-    --text: #d4ead9;
-    --muted: #7aaa8a;
+    --bg: #f4f8f5;
+    --surface: #ffffff;
+    --surface2: #eaf3ee;
+    --border: #c8dfd0;
+    --azul: #1a3a6b;
+    --verde: #1a6b42;
+    --verde-light: #2a9b5e;
+    --text: #1a2820;
+    --text-dim: #4a6b58;
+    --muted: #7a9b88;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--ink);
-    color: var(--text);
-    font-family: 'Cormorant Garamond', serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Background texture */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse 80% 60% at 20% 80%, rgba(26,92,58,0.95) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(26,43,92,0.4) 0%, transparent 50%),
-      radial-gradient(ellipse 100% 80% at 50% 110%, rgba(77,200,122,0.07) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* HEADER */
-  header {
-    padding: 48px 0 32px;
-    text-align: center;
-  }
-
-  .logo-symbol {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--acento);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  h1 {
-    font-size: clamp(2.8rem, 8vw, 4.5rem);
-    font-weight: 300;
-    line-height: 1;
-    letter-spacing: -1px;
-    color: var(--foam);
-  }
-
-  h1 em {
-    font-style: italic;
-    color: var(--acento);
-  }
-
-  .tagline {
-    margin-top: 12px;
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: var(--muted);
-    font-style: italic;
-    letter-spacing: 0.5px;
-  }
-
-  .divider {
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--acento), transparent);
-    margin: 28px auto;
-  }
-
-  /* PROGRESS BAR */
-  .progress-section {
-    background: rgba(15,31,20,0.8);
-    border: 1px solid rgba(77,200,122,0.15);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 28px;
-    backdrop-filter: blur(10px);
-  }
-
-  .progress-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .progress-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .progress-pct {
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    color: var(--acento);
-  }
-
-  .progress-track {
-    height: 4px;
-    background: rgba(77,200,122,0.1);
-    border-radius: 99px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--verde), var(--acento));
-    border-radius: 99px;
-    transition: width 0.6s ease;
-  }
-
-  .level-pills {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-    flex-wrap: wrap;
-  }
-
-  .pill {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1px;
-    padding: 4px 10px;
-    border-radius: 99px;
-    border: 1px solid;
-    text-transform: uppercase;
-  }
-
-  .pill-done { border-color: var(--acento); color: var(--acento); background: rgba(77,200,122,0.08); }
-  .pill-active { border-color: var(--foam); color: var(--foam); background: rgba(255,255,255,0.08); }
-  .pill-locked { border-color: rgba(122,170,138,0.3); color: rgba(122,170,138,0.4); }
-
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 2px;
-    margin-bottom: 24px;
-    background: rgba(15,31,20,0.6);
-    border: 1px solid rgba(77,200,122,0.1);
-    border-radius: 10px;
-    padding: 4px;
-  }
-
-  .tab {
-    flex: 1;
-    padding: 10px;
-    text-align: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    cursor: pointer;
-    border-radius: 7px;
-    transition: all 0.2s;
-    border: none;
-    background: none;
-  }
-
-  .tab.active {
-    background: rgba(77,200,122,0.12);
-    color: var(--acento);
-    border: 1px solid rgba(77,200,122,0.2);
-  }
-
-  /* PANEL */
-  .panel { display: none; }
-  .panel.active { display: block; animation: fadeIn 0.3s ease; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* LESSON CARD */
-  .lesson-intro {
-    font-size: 1.05rem;
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 24px;
-    line-height: 1.6;
-  }
-
-  .word-card {
-    background: rgba(15,31,20,0.9);
-    border: 1px solid rgba(77,200,122,0.15);
-    border-radius: 14px;
-    padding: 28px;
-    margin-bottom: 16px;
-    cursor: pointer;
-    transition: all 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .word-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px; height: 100%;
-    background: linear-gradient(180deg, var(--acento), var(--verde));
-    opacity: 0;
-    transition: opacity 0.25s;
-  }
-
-  .word-card:hover { border-color: rgba(77,200,122,0.35); transform: translateX(3px); }
-  .word-card:hover::before { opacity: 1; }
-  .word-card.revealed { border-color: rgba(77,200,122,0.3); background: rgba(20,45,30,0.7); }
-  .word-card.revealed::before { opacity: 1; }
-
-  .word-kawesqar {
-    font-size: 2.2rem;
-    font-weight: 300;
-    letter-spacing: 1px;
-    color: var(--foam);
-    margin-bottom: 4px;
-  }
-
-  .word-phonetic {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--acento);
-    margin-bottom: 10px;
-    opacity: 0.7;
-  }
-
-  .word-translation {
-    font-size: 1.2rem;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  .word-note {
-    margin-top: 10px;
-    font-size: 0.9rem;
-    color: rgba(168,222,221,0.5);
-    line-height: 1.5;
-    display: none;
-  }
-
-  .word-card.revealed .word-note { display: block; }
-
-  .audio-btn {
-    position: absolute;
-    top: 20px; right: 20px;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(77,200,122,0.1);
-    border: 1px solid rgba(77,200,122,0.25);
-    color: var(--acento);
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    font-size: 14px;
-    transition: all 0.2s;
-  }
-
-  .audio-btn:hover { background: rgba(77,200,122,0.2); transform: scale(1.08); }
-  .audio-btn.playing { background: rgba(77,200,122,0.25); animation: pulse 1s infinite; }
-
-  @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(77,200,122,0.3); }
-    50% { box-shadow: 0 0 0 6px rgba(77,200,122,0); }
-  }
-
-  .hint {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1px;
-    color: rgba(122,170,138,0.5);
-    text-align: center;
-    margin-top: 8px;
-    text-transform: uppercase;
-  }
-
-  /* EXERCISE */
-  .exercise-question {
-    font-size: 1.6rem;
-    font-weight: 300;
-    color: var(--foam);
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .exercise-sub {
-    font-style: italic;
-    color: var(--muted);
-    font-size: 1rem;
-    margin-bottom: 28px;
-  }
-
-  .options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .option-btn {
-    padding: 18px 16px;
-    background: rgba(15,31,20,0.8);
-    border: 1px solid rgba(77,200,122,0.15);
-    border-radius: 10px;
-    color: var(--text);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
-  }
-
-  .option-btn:hover:not(:disabled) { border-color: rgba(77,200,122,0.4); background: rgba(20,45,30,0.6); }
-  .option-btn.correct { border-color: var(--acento); background: rgba(77,200,122,0.12); color: var(--acento); }
-  .option-btn.wrong { border-color: rgba(200,80,80,0.5); background: rgba(200,80,80,0.08); color: rgba(200,140,140,0.8); }
-  .option-btn:disabled { cursor: not-allowed; }
-
-  .feedback {
-    text-align: center;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-style: italic;
-    display: none;
-  }
-
-  .feedback.show { display: block; animation: fadeIn 0.3s ease; }
-  .feedback.ok { background: rgba(77,200,122,0.08); border: 1px solid rgba(77,200,122,0.2); color: var(--acento); }
-  .feedback.fail { background: rgba(200,80,80,0.06); border: 1px solid rgba(200,80,80,0.2); color: rgba(200,140,140,0.9); }
-
-  .next-btn {
-    display: none;
-    width: 100%;
-    margin-top: 16px;
-    padding: 14px;
-    background: linear-gradient(135deg, var(--verde), rgba(26,92,58,0.6));
-    border: 1px solid var(--verde);
-    border-radius: 10px;
-    color: var(--foam);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .next-btn.show { display: block; animation: fadeIn 0.3s ease; }
-  .next-btn:hover { background: linear-gradient(135deg, rgba(26,92,58,0.9), rgba(26,92,58,0.5)); transform: translateY(-1px); }
-
-  .score-display {
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    text-align: right;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-  }
-
-  /* AI PANEL */
-  .ai-intro {
-    font-size: 1rem;
-    color: var(--muted);
-    font-style: italic;
-    margin-bottom: 20px;
-    line-height: 1.6;
-  }
-
-  .chat-area {
-    background: rgba(10,20,14,0.8);
-    border: 1px solid rgba(77,200,122,0.12);
-    border-radius: 12px;
-    min-height: 220px;
-    max-height: 320px;
-    overflow-y: auto;
-    padding: 20px;
-    margin-bottom: 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .msg {
-    display: flex;
-    gap: 10px;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .msg-avatar {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px;
-  }
-
-  .msg-user .msg-avatar { background: rgba(77,200,122,0.15); border: 1px solid rgba(77,200,122,0.3); color: var(--acento); }
-  .msg-ai .msg-avatar { background: rgba(77,200,122,0.1); border: 1px solid rgba(77,200,122,0.25); color: var(--acento); }
-
-  .msg-bubble {
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 1rem;
-    line-height: 1.5;
-    max-width: 85%;
-  }
-
-  .msg-user .msg-bubble { background: rgba(77,200,122,0.07); border: 1px solid rgba(77,200,122,0.12); color: var(--foam); margin-left: auto; }
-  .msg-ai .msg-bubble { background: rgba(15,31,20,0.8); border: 1px solid rgba(77,200,122,0.1); color: var(--text); }
-
-  .msg-user { flex-direction: row-reverse; }
-
-  .kawesqar-highlight {
-    color: var(--acento);
-    font-style: italic;
-  }
-
-  .chat-input-row {
-    display: flex;
-    gap: 10px;
-  }
-
-  .chat-input {
-    flex: 1;
-    background: rgba(15,31,20,0.8);
-    border: 1px solid rgba(77,200,122,0.2);
-    border-radius: 9px;
-    padding: 12px 16px;
-    color: var(--foam);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .chat-input:focus { border-color: rgba(77,200,122,0.5); }
-  .chat-input::placeholder { color: var(--muted); font-style: italic; }
-
-  .send-btn {
-    padding: 12px 20px;
-    background: rgba(77,200,122,0.12);
-    border: 1px solid rgba(77,200,122,0.25);
-    border-radius: 9px;
-    color: var(--acento);
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .send-btn:hover { background: rgba(77,200,122,0.2); }
-  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  .typing-indicator {
-    display: flex;
-    gap: 4px;
-    align-items: center;
-    padding: 8px 0;
-  }
-
-  .typing-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--acento);
-    animation: typing 1.2s infinite;
-  }
-
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-  @keyframes typing {
-    0%, 60%, 100% { opacity: 0.2; transform: scale(0.8); }
-    30% { opacity: 1; transform: scale(1); }
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 40px 0;
-    text-align: center;
-  }
-
-  .footer-note {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: rgba(122,170,138,0.35);
-  }
-
-  .sabias-que {
-    background: linear-gradient(135deg, rgba(20,45,30,0.6), rgba(10,20,14,0.4));
-    border: 1px solid rgba(77,200,122,0.15);
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-top: 20px;
-  }
-
-  .sabias-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--acento);
-    margin-bottom: 8px;
-    opacity: 0.8;
-  }
-
-  .sabias-text {
-    font-size: 0.95rem;
-    color: rgba(168,222,221,0.6);
-    font-style: italic;
-    line-height: 1.6;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(77,200,122,0.2); border-radius: 99px; }
-
-  /* Complete state */
-  .complete-screen {
-    text-align: center;
-    padding: 40px 20px;
-    display: none;
-  }
-
-  .complete-screen.show { display: block; animation: fadeIn 0.5s ease; }
-
-  .complete-icon {
-    font-size: 3rem;
-    margin-bottom: 16px;
-  }
-
-  .complete-title {
-    font-size: 2rem;
-    font-weight: 300;
-    color: var(--foam);
-    margin-bottom: 8px;
-  }
-
-  .complete-sub {
-    font-style: italic;
-    color: var(--muted);
-    margin-bottom: 24px;
-  }
-
-  .restart-btn {
-    padding: 12px 28px;
-    background: transparent;
-    border: 1px solid rgba(77,200,122,0.3);
-    border-radius: 8px;
-    color: var(--acento);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .restart-btn:hover { background: rgba(77,200,122,0.08); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Cormorant Garamond',serif; min-height:100vh; overflow-x:hidden; }
+  body::before { content:''; position:fixed; inset:0; background: radial-gradient(ellipse 70% 50% at 10% 90%, rgba(26,107,66,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 90% 10%, rgba(26,58,107,0.07) 0%, transparent 50%); pointer-events:none; z-index:0; }
+  .container { position:relative; z-index:1; max-width:740px; margin:0 auto; padding:0 24px; }
+  header { padding:48px 0 32px; text-align:center; }
+  .logo-symbol { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:4px; color:var(--azul); text-transform:uppercase; margin-bottom:16px; display:block; opacity:0.8; }
+  h1 { font-size:clamp(2.8rem,8vw,4.5rem); font-weight:300; line-height:1; letter-spacing:-1px; color:var(--azul); }
+  h1 em { font-style:italic; color:var(--verde); }
+  .tagline { margin-top:12px; font-size:1.1rem; font-weight:300; color:var(--text-dim); font-style:italic; }
+  .divider { width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--verde),var(--azul),transparent); margin:28px auto; opacity:0.4; }
+  .progress-section { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 24px; margin-bottom:28px; box-shadow:0 2px 8px rgba(26,58,107,0.06); }
+  .progress-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+  .progress-label { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+  .progress-pct { font-family:'Space Mono',monospace; font-size:13px; color:var(--verde); font-weight:700; }
+  .progress-track { height:5px; background:var(--surface2); border-radius:99px; overflow:hidden; border:1px solid var(--border); }
+  .progress-fill { height:100%; background:linear-gradient(90deg,var(--azul),var(--verde)); border-radius:99px; transition:width 0.6s ease; }
+  .level-pills { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .pill { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; padding:4px 10px; border-radius:99px; border:1px solid; text-transform:uppercase; }
+  .pill-done { border-color:var(--verde); color:var(--verde); background:rgba(42,155,94,0.08); }
+  .pill-active { border-color:var(--azul); color:var(--azul); background:rgba(26,58,107,0.08); }
+  .pill-locked { border-color:var(--border); color:var(--muted); }
+  .tabs { display:flex; gap:2px; margin-bottom:24px; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:4px; box-shadow:0 2px 8px rgba(26,58,107,0.06); }
+  .tab { flex:1; padding:10px; text-align:center; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); cursor:pointer; border-radius:7px; transition:all 0.2s; border:none; background:none; }
+  .tab.active { background:linear-gradient(135deg,rgba(26,58,107,0.08),rgba(26,107,66,0.08)); color:var(--azul); border:1px solid var(--border); font-weight:700; }
+  .panel { display:none; }
+  .panel.active { display:block; animation:fadeIn 0.3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  .lesson-intro { font-size:1.05rem; color:var(--text-dim); font-style:italic; margin-bottom:24px; line-height:1.7; background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; border-left:4px solid var(--azul); }
+  .word-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:28px; margin-bottom:14px; cursor:pointer; transition:all 0.25s; position:relative; overflow:hidden; box-shadow:0 2px 8px rgba(26,58,107,0.05); }
+  .word-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:linear-gradient(180deg,var(--azul),var(--verde)); opacity:0; transition:opacity 0.25s; }
+  .word-card:hover { border-color:var(--verde); transform:translateX(3px); }
+  .word-card:hover::before { opacity:1; }
+  .word-card.revealed { border-color:rgba(26,107,66,0.4); background:#f0faf4; }
+  .word-card.revealed::before { opacity:1; }
+  .word-kawesqar { font-size:2.2rem; font-weight:300; letter-spacing:1px; color:var(--azul); margin-bottom:4px; }
+  .word-phonetic { font-family:'Space Mono',monospace; font-size:11px; color:var(--verde); margin-bottom:10px; opacity:0.8; }
+  .word-translation { font-size:1.2rem; color:var(--text-dim); font-style:italic; }
+  .word-note { margin-top:12px; font-size:0.92rem; color:var(--text-dim); line-height:1.6; display:none; padding-top:12px; border-top:1px solid var(--border); }
+  .word-card.revealed .word-note { display:block; }
+  .audio-btn { position:absolute; top:20px; right:20px; width:36px; height:36px; border-radius:50%; background:rgba(26,58,107,0.08); border:1px solid rgba(26,58,107,0.2); color:var(--azul); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; transition:all 0.2s; }
+  .audio-btn:hover { background:rgba(26,58,107,0.15); transform:scale(1.08); }
+  .audio-btn.playing { background:rgba(26,107,66,0.15); animation:pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(26,107,66,0.3)} 50%{box-shadow:0 0 0 6px rgba(26,107,66,0)} }
+  .hint { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:1px; color:var(--muted); text-align:center; margin-top:8px; text-transform:uppercase; }
+  .score-display { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); text-align:right; margin-bottom:16px; }
+  .exercise-question { font-size:1.6rem; font-weight:300; color:var(--azul); margin-bottom:8px; }
+  .exercise-sub { font-style:italic; color:var(--muted); font-size:1rem; margin-bottom:28px; }
+  .options-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px; }
+  .option-btn { padding:18px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; color:var(--text); font-family:'Cormorant Garamond',serif; font-size:1.2rem; cursor:pointer; transition:all 0.2s; text-align:center; }
+  .option-btn:hover:not(:disabled) { border-color:var(--azul); background:rgba(26,58,107,0.04); }
+  .option-btn.correct { border-color:var(--verde); background:rgba(26,107,66,0.08); color:var(--verde); font-weight:600; }
+  .option-btn.wrong { border-color:#c0392b; background:rgba(192,57,43,0.06); color:#c0392b; }
+  .option-btn:disabled { cursor:not-allowed; }
+  .feedback { text-align:center; padding:14px; border-radius:8px; font-size:1rem; font-style:italic; display:none; line-height:1.5; }
+  .feedback.show { display:block; animation:fadeIn 0.3s ease; }
+  .feedback.ok { background:rgba(26,107,66,0.06); border:1px solid rgba(26,107,66,0.2); color:var(--verde); }
+  .feedback.fail { background:rgba(192,57,43,0.04); border:1px solid rgba(192,57,43,0.2); color:#c0392b; }
+  .next-btn { display:none; width:100%; margin-top:16px; padding:14px; background:linear-gradient(135deg,var(--azul),var(--verde)); border:none; border-radius:10px; color:white; font-family:'Cormorant Garamond',serif; font-size:1.1rem; cursor:pointer; }
+  .next-btn.show { display:block; animation:fadeIn 0.3s ease; }
+  .ai-intro { font-size:1rem; color:var(--text-dim); font-style:italic; margin-bottom:20px; line-height:1.6; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--verde); border-radius:10px; padding:14px 18px; }
+  .chat-area { background:var(--surface); border:1px solid var(--border); border-radius:12px; min-height:260px; max-height:360px; overflow-y:auto; padding:20px; margin-bottom:14px; display:flex; flex-direction:column; gap:14px; }
+  .msg { display:flex; gap:10px; animation:fadeIn 0.3s ease; }
+  .msg-avatar { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-family:'Space Mono',monospace; }
+  .msg-user .msg-avatar { background:rgba(26,58,107,0.1); border:1px solid rgba(26,58,107,0.2); color:var(--azul); }
+  .msg-ai .msg-avatar { background:rgba(26,107,66,0.1); border:1px solid rgba(26,107,66,0.2); color:var(--verde); }
+  .msg-bubble { padding:10px 14px; border-radius:10px; font-size:1rem; line-height:1.6; max-width:85%; }
+  .msg-user .msg-bubble { background:rgba(26,58,107,0.06); border:1px solid rgba(26,58,107,0.15); color:var(--text); margin-left:auto; }
+  .msg-ai .msg-bubble { background:rgba(26,107,66,0.04); border:1px solid rgba(26,107,66,0.15); color:var(--text); }
+  .msg-user { flex-direction:row-reverse; }
+  .kawesqar-highlight { color:var(--azul); font-style:italic; font-weight:600; }
+  .chat-input-row { display:flex; gap:10px; }
+  .chat-input { flex:1; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:12px 16px; color:var(--text); font-family:'Cormorant Garamond',serif; font-size:1rem; outline:none; transition:border-color 0.2s; }
+  .chat-input:focus { border-color:var(--azul); }
+  .chat-input::placeholder { color:var(--muted); font-style:italic; }
+  .send-btn { padding:12px 20px; background:linear-gradient(135deg,var(--azul),var(--verde)); border:none; border-radius:9px; color:white; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:1px; cursor:pointer; text-transform:uppercase; }
+  .send-btn:disabled { opacity:0.4; cursor:not-allowed; }
+  .typing-indicator { display:flex; gap:4px; align-items:center; padding:8px 0; }
+  .typing-dot { width:6px; height:6px; border-radius:50%; background:var(--verde); animation:typing 1.2s infinite; }
+  .typing-dot:nth-child(2){animation-delay:0.2s} .typing-dot:nth-child(3){animation-delay:0.4s}
+  @keyframes typing { 0%,60%,100%{opacity:0.2;transform:scale(0.8)} 30%{opacity:1;transform:scale(1)} }
+  .sabias-que { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-top:20px; border-left:4px solid var(--azul); }
+  .sabias-label { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--azul); margin-bottom:8px; font-weight:700; }
+  .sabias-text { font-size:0.95rem; color:var(--text-dim); font-style:italic; line-height:1.6; }
+  .complete-screen { text-align:center; padding:40px 20px; display:none; }
+  .complete-screen.show { display:block; animation:fadeIn 0.5s ease; }
+  .complete-icon { font-size:3rem; margin-bottom:16px; }
+  .complete-title { font-size:2rem; font-weight:300; color:var(--azul); margin-bottom:8px; }
+  .complete-sub { font-style:italic; color:var(--muted); margin-bottom:24px; }
+  .restart-btn { padding:12px 28px; background:transparent; border:1px solid var(--border); border-radius:8px; color:var(--azul); font-family:'Cormorant Garamond',serif; font-size:1rem; cursor:pointer; }
+  footer { padding:40px 0; text-align:center; }
+  .footer-note { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); opacity:0.6; }
+  ::-webkit-scrollbar{width:4px} ::-webkit-scrollbar-track{background:transparent} ::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+  @media(max-width:600px){.options-grid{grid-template-columns:1fr} h1{font-size:2.5rem}}
 </style>
 </head>
 <body>
-
 <div class="container">
 
   <header>
@@ -601,14 +124,13 @@
 
   <div class="divider"></div>
 
-  <!-- Progress -->
   <div class="progress-section">
     <div class="progress-header">
       <span class="progress-label">Tu progreso</span>
       <span class="progress-pct" id="pct-text">33%</span>
     </div>
     <div class="progress-track">
-      <div class="progress-fill" id="progress-bar" style="width: 33%"></div>
+      <div class="progress-fill" id="progress-bar" style="width:33%"></div>
     </div>
     <div class="level-pills">
       <span class="pill pill-done">✓ Introducción</span>
@@ -617,438 +139,206 @@
     </div>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs">
-    <button class="tab active" onclick="switchTab('lesson', this)">Lección</button>
-    <button class="tab" onclick="switchTab('exercise', this)">Ejercicio</button>
-    <button class="tab" onclick="switchTab('ai', this)">Asistente IA</button>
+    <button class="tab active" onclick="switchTab('lesson',this)">Lección</button>
+    <button class="tab" onclick="switchTab('exercise',this)">Ejercicio</button>
+    <button class="tab" onclick="switchTab('ai',this)">Asistente IA</button>
   </div>
 
-  <!-- PANEL: LESSON -->
+  <!-- LECCIÓN -->
   <div class="panel active" id="panel-lesson">
     <p class="lesson-intro">El Kawésqar es una lengua polisintética de los canales de la Patagonia chilena. Vocabulario extraído del <em>Diccionario Conciso Español-Kawésqar</em> de Oscar E. Aguilera F. y José S. Tonko P. (CONADI, 2005). Toca cada palabra para descubrir su historia.</p>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">Kawésqar</div>
-      <div class="word-phonetic">/ka·wes·qar/</div>
-      <div class="word-translation">Persona · ser humano del mar</div>
-      <div class="word-note">El nombre del pueblo y su lengua son la misma palabra. Kawésqar significa "persona del mar": el pueblo se identifica a sí mismo con el territorio que habitó por milenios. Es una lengua aislada, sin parentesco confirmado con ninguna otra en el mundo.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">Kawésqar</div><div class="word-phonetic">/ka·wes·qar/</div><div class="word-translation">Persona · ser humano del mar</div><div class="word-note">El nombre del pueblo y su lengua son la misma palabra. Es una lengua aislada, sin parentesco confirmado con ninguna otra en el mundo. El pueblo se identifica a sí mismo con el territorio que habitó por milenios.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">aksánas</div>
-      <div class="word-phonetic">/ak·sá·nas/</div>
-      <div class="word-translation">Canoa · embarcación de corteza</div>
-      <div class="word-note">La canoa era el hogar y el vehículo esencial de los Kawésqar. Construida con corteza de árbol (árka) y calafateada con grasa animal, permitía navegar los canales más helados del mundo. La familia entera vivía en ella.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">kájef</div><div class="word-phonetic">/ká·jef/</div><div class="word-translation">Canoa · el hogar flotante</div><div class="word-note">Construida con corteza de árbol y calafateada con grasa animal, la canoa (kájef) permitía navegar los canales más helados del mundo. La familia entera vivía en ella. Era el hogar — no un vehículo.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">háwes</div>
-      <div class="word-phonetic">/há·wes/</div>
-      <div class="word-translation">Fuego · el que da calor y vida</div>
-      <div class="word-note">El fuego era tan central para los Kawésqar que lo mantenían encendido dentro de la canoa, sobre una base de arcilla. Los primeros exploradores europeos los llamaron "fueguinos" precisamente por esta práctica.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">háwes</div><div class="word-phonetic">/há·wes/</div><div class="word-translation">Fuego · el que da calor y vida</div><div class="word-note">Los Kawésqar mantenían el fuego encendido dentro de la canoa sobre un brasero de barro llamado c'afesktéxar. Los primeros europeos los llamaron "fueguinos" precisamente por esta práctica.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">asqet</div>
-      <div class="word-phonetic">/as·qet/</div>
-      <div class="word-translation">Mar · el gran territorio</div>
-      <div class="word-note">Para los Kawésqar el mar no era el entorno: era el territorio vivido. Sus rutas de navegación abarcaban miles de kilómetros entre los canales de la Patagonia chilena, desde el Golfo de Penas hasta el Cabo de Hornos.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">akčólai · c'afalái</div><div class="word-phonetic">/ak·čó·lai/ · /c'a·fa·lái/</div><div class="word-translation">Agua general · agua potable</div><div class="word-note">El diccionario distingue al menos cuatro palabras para el agua según su tipo y uso. Vivían rodeados de agua — y la conocían con precisión absoluta. Esa precisión es conocimiento ecológico profundo.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">akčólai</div>
-      <div class="word-phonetic">/ak·čó·lai/</div>
-      <div class="word-translation">Agua · en general</div>
-      <div class="word-note">El diccionario distingue al menos cuatro palabras para el agua según su tipo y uso. Akčólai es el agua en sentido general; c'afalái es el agua potable. Esta distinción revela la profunda relación de los Kawésqar con su entorno acuático.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">čekéja</div><div class="word-phonetic">/če·ké·ja/</div><div class="word-translation">Lobo marino · fuente de vida</div><div class="word-note">El lobo marino era fuente esencial de alimento, aceite y piel. Su caza requería el arpón jewajówar (de un diente) o t'ánt'ar (de varios dientes) y un profundo conocimiento del animal.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">čekéja</div>
-      <div class="word-phonetic">/če·ké·ja/</div>
-      <div class="word-translation">Lobo marino · fuente de vida</div>
-      <div class="word-note">El lobo marino era una de las fuentes más importantes de alimento, aceite y piel para los Kawésqar. Su caza requería precisión con el arpón (k'ásqar) y un profundo conocimiento del comportamiento animal en los canales.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">ápala</div><div class="word-phonetic">/á·pa·la/</div><div class="word-translation">Ballena · el gigante del canal</div><div class="word-note">Cuando la ballena (ápala) varada, representaba una fuente extraordinaria de alimento para toda la comunidad. En el dialecto Sur se llama pestélo. El evento era celebrado colectivamente.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">aqtašal</div>
-      <div class="word-phonetic">/aq·ta·šal/</div>
-      <div class="word-translation">Ballena · el gigante del canal</div>
-      <div class="word-note">La ballena era el animal más imponente del universo Kawésqar. Cuando varada, representaba una fuente extraordinaria de alimento que convocaba a toda la comunidad. Su presencia marcaba los relatos y la cosmología del pueblo.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">kehéna</div><div class="word-phonetic">/ke·hé·na/</div><div class="word-translation">Amar · el vínculo esencial</div><div class="word-note">En entornos extremos, la cohesión del grupo era condición de sobrevivencia. Amar y cuidar al otro no era un sentimiento — era una práctica de resiliencia que hacía posible la vida.</div></div>
 
-    <div class="word-card" onclick="reveal(this)">
-      <button class="audio-btn" onclick="playAudio(event, this)" title="Escuchar">♪</button>
-      <div class="word-kawesqar">kehéna</div>
-      <div class="word-phonetic">/ke·hé·na/</div>
-      <div class="word-translation">Amar · el vínculo esencial</div>
-      <div class="word-note">Los lazos familiares y comunitarios eran el núcleo de la vida Kawésqar. En una existencia nómada en entornos extremos, la cohesión del grupo era condición de sobrevivencia. Amar y cuidar al otro era también una práctica de resiliencia.</div>
-    </div>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">akiepéna</div><div class="word-phonetic">/a·kie·pé·na/</div><div class="word-translation">Arcoíris · señal del cielo</div><div class="word-note">Los astros se denominaban arkaksélas ("la que está arriba"). El amanecer es aswál. El cielo y sus fenómenos tenían nombres específicos que orientaban la navegación en los canales.</div></div>
 
-    <p class="hint">↑ Toca cada tarjeta para revelar su historia · Fuente: Diccionario Conciso Español-Kawésqar (Aguilera & Tonko, CONADI 2005)</p>
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">lájep</div><div class="word-phonetic">/lá·jep/</div><div class="word-translation">Bonito · bueno</div><div class="word-note">Una sola palabra para belleza y bondad. En Kawésqar lo bello y lo bueno son la misma cosa. Una lengua que no separa la estética de la ética — quizás una de las lecciones más profundas de este pueblo.</div></div>
+
+    <div class="word-card" onclick="reveal(this)"><button class="audio-btn" onclick="playAudio(event,this)">♪</button><div class="word-kawesqar">jémo · kčewéskar</div><div class="word-phonetic">/jé·mo/ · /kče·wés·kar/</div><div class="word-translation">Remar · pescar</div><div class="word-note">El verbo asá significa a la vez comer, bajar y embarcarse. En Kawésqar alimentarse era un acto de movimiento constante. Remar y pescar no eran trabajos — eran la forma de habitar el mundo.</div></div>
+
+    <p class="hint">↑ Toca cada tarjeta para revelar su historia · ♪ para escuchar</p>
 
     <div class="sabias-que">
       <div class="sabias-label">¿Sabías que?</div>
-      <div class="sabias-text">El Kawésqar es una lengua aislada: no tiene parentesco confirmado con ninguna otra lengua del mundo. El diccionario de Aguilera y Tonko (2005) fue compilado directamente con hablantes competentes, a partir de años de investigación lingüística en terreno. Hoy quedan menos de diez hablantes nativos, todos en Puerto Edén, Magallanes.</div>
+      <div class="sabias-text">El Kawésqar distingue más de 15 formas de decir "aquí" según el tipo de terreno — playa, canal, cerro, pantano, barranco. Hoy quedan menos de diez hablantes nativos, todos en Puerto Edén, Magallanes. El diccionario de Aguilera y Tonko (CONADI, 2005) fue compilado directamente con hablantes competentes tras años de investigación en terreno.</div>
     </div>
   </div>
 
-  <!-- PANEL: EXERCISE -->
+  <!-- EJERCICIO -->
   <div class="panel" id="panel-exercise">
     <div class="score-display" id="score-display">Puntos: 0 / 0</div>
-
-    <div id="exercise-container">
-      <!-- populated by JS -->
-    </div>
-
+    <div id="exercise-container"></div>
     <div class="complete-screen" id="complete-screen">
       <div class="complete-icon">✦</div>
       <div class="complete-title">¡Bien hecho!</div>
-      <div class="complete-sub" id="complete-sub">Has completado la lección básica de Kawésqar.</div>
+      <div class="complete-sub" id="complete-sub">Has completado la lección básica.</div>
       <button class="restart-btn" onclick="restartExercise()">Repetir ejercicios</button>
     </div>
   </div>
 
-  <!-- PANEL: AI -->
+  <!-- ASISTENTE IA -->
   <div class="panel" id="panel-ai">
-    <p class="ai-intro">Pregúntame palabras o frases en español. Te responderé con su equivalente en Kawésqar, con contexto cultural. Este asistente está en modo demostración.</p>
-
+    <p class="ai-intro">Pregúntame palabras, frases o contexto cultural en español. Te responderé con su equivalente en Kawésqar basado en el Diccionario de Aguilera y Tonko (CONADI, 2005). Nunca invento términos — esta es una lengua en peligro crítico con menos de 10 hablantes vivos.</p>
     <div class="chat-area" id="chat-area">
       <div class="msg msg-ai">
         <div class="msg-avatar">✦</div>
-        <div class="msg-bubble">Hola. Soy el asistente de aprendizaje Kawésqar, basado en el diccionario de Aguilera y Tonko (CONADI, 2005). Puedes preguntarme traducciones como <em>"¿cómo se dice lluvia?"</em>, <em>"¿qué significa kehéna?"</em> o <em>"¿cuántas palabras hay para agua?"</em></div>
+        <div class="msg-bubble">Hola. Soy el asistente Kawésqar. Puedes preguntarme <em>"¿cómo se dice lluvia?"</em>, <em>"¿qué significa kehéna?"</em>, <em>"¿cuántas palabras hay para agua?"</em> o <em>"¿cómo era la canoa kawésqar?"</em></div>
       </div>
     </div>
-
     <div class="chat-input-row">
-      <input class="chat-input" id="chat-input" type="text" placeholder="Escribe en español..." maxlength="150" />
+      <input class="chat-input" id="chat-input" type="text" placeholder="Escribe en español..." maxlength="200" />
       <button class="send-btn" id="send-btn" onclick="sendMessage()">Enviar</button>
     </div>
   </div>
 
   <footer>
     <div class="divider"></div>
-    <p class="footer-note">Demo · Procesus × Fundación Pueblo Kawésqar · pueblokawesqar.org · Diccionario: Aguilera & Tonko, CONADI 2005</p>
+    <p class="footer-note">Procesus × Fundación Pueblo Kawésqar · pueblokawesqar.org · Diccionario: Aguilera & Tonko, CONADI 2005</p>
   </footer>
 
 </div>
 
 <script>
-  // ─── TAB SWITCHER ───────────────────────────────────────────
-  function switchTab(name, btn) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById('panel-' + name).classList.add('active');
-    btn.classList.add('active');
-    if (name === 'exercise' && !exerciseInitialized) initExercise();
+function switchTab(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'exercise' && !exerciseInitialized) initExercise();
+}
+
+function reveal(card) { card.classList.toggle('revealed'); }
+
+function playAudio(e, btn) {
+  e.stopPropagation();
+  btn.classList.add('playing');
+  const word = btn.nextElementSibling.textContent.split('/')[0].trim();
+  if ('speechSynthesis' in window) {
+    const utt = new SpeechSynthesisUtterance(word);
+    utt.lang = 'es-CL'; utt.rate = 0.65; utt.pitch = 0.9;
+    utt.onend = () => btn.classList.remove('playing');
+    speechSynthesis.speak(utt);
+  } else { setTimeout(() => btn.classList.remove('playing'), 1200); }
+}
+
+const questions = [
+  { q:'¿Cómo se dice "agua potable" en Kawésqar?', sub:'El diccionario distingue varios tipos de agua', opts:['asqet','c\'afalái','háwes','kájef'], correct:1, nota:'Correcto. C\'afalái es el agua potable. El agua en general se llama akčólai.' },
+  { q:'¿Qué animal es el "čekéja"?', sub:'Era una fuente esencial de alimento y piel', opts:['Ballena','Águila','Lobo marino','Albatros'], correct:2, nota:'Correcto. El lobo marino (čekéja) era fundamental para la subsistencia Kawésqar.' },
+  { q:'"Kehéna" significa…', sub:'Un vínculo esencial en la vida comunitaria', opts:['Pescar','Amar','Navegar','Remar'], correct:1, nota:'Correcto. Amar (kehéna) era también una práctica de resiliencia en entornos extremos.' },
+  { q:'¿Cómo se dice "ballena" en Kawésqar?', sub:'El animal más imponente de los canales', opts:['čekéja','arresárrok','ápala','čéjes'], correct:2, nota:'Correcto. Ápala es la ballena. En el dialecto Sur se llama pestélo.' },
+  { q:'"Kájef" es la palabra Kawésqar para…', sub:'El hogar flotante del pueblo nómada', opts:['Fuego','Canoa','Casa en tierra','Arpón'], correct:1, nota:'Correcto. La canoa (kájef) era el verdadero hogar de la familia Kawésqar.' },
+  { q:'¿Cómo se dice "remar" en Kawésqar?', sub:'La habilidad más fundamental para sobrevivir', opts:['jémo','asá','kehéna','kčewéskar'], correct:0, nota:'Correcto. Remar es jémo. Kčewéskar significa pescar.' },
+  { q:'"Lájep" en Kawésqar significa…', sub:'Una sola palabra para dos conceptos', opts:['Remo','Bonito y bueno','Silencio','Agua'], correct:1, nota:'Correcto. Lájep significa bonito y bueno a la vez — belleza y bondad son inseparables.' },
+  { q:'¿Cuál es la palabra Kawésqar para "fuego"?', sub:'Los Kawésqar lo mantenían encendido en la canoa', opts:['akčólai','kájef','háwes','asqet'], correct:2, nota:'Correcto. Háwes es el fuego. Lo transportaban en un brasero de barro.' }
+];
+
+let currentQ = 0, score = 0, exerciseInitialized = false;
+
+function initExercise() { exerciseInitialized = true; currentQ = 0; score = 0; renderQuestion(); }
+
+function renderQuestion() {
+  const container = document.getElementById('exercise-container');
+  if (currentQ >= questions.length) {
+    container.style.display = 'none';
+    document.getElementById('complete-screen').classList.add('show');
+    document.getElementById('complete-sub').textContent = `Respondiste ${score} de ${questions.length} correctamente.`;
+    document.getElementById('progress-bar').style.width = '66%';
+    document.getElementById('pct-text').textContent = '66%';
+    return;
   }
+  const q = questions[currentQ];
+  updateScoreDisplay();
+  container.style.display = 'block';
+  container.innerHTML = `
+    <div class="exercise-question">${q.q}</div>
+    <p class="exercise-sub">${q.sub}</p>
+    <div class="options-grid">${q.opts.map((o,i) => `<button class="option-btn" onclick="selectAnswer(${i})">${o}</button>`).join('')}</div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">${currentQ < questions.length-1 ? 'Siguiente →' : 'Ver resultado'}</button>
+  `;
+}
 
-  // ─── LESSON ─────────────────────────────────────────────────
-  function reveal(card) {
-    card.classList.toggle('revealed');
+function selectAnswer(idx) {
+  const q = questions[currentQ];
+  const btns = document.querySelectorAll('.option-btn');
+  btns.forEach(b => b.disabled = true);
+  if (idx === q.correct) { btns[idx].classList.add('correct'); document.getElementById('feedback').textContent = '✓ ' + q.nota; document.getElementById('feedback').className = 'feedback show ok'; score++; }
+  else { btns[idx].classList.add('wrong'); btns[q.correct].classList.add('correct'); document.getElementById('feedback').textContent = '✗ La respuesta correcta es: ' + q.opts[q.correct]; document.getElementById('feedback').className = 'feedback show fail'; }
+  document.getElementById('next-btn').classList.add('show');
+  updateScoreDisplay();
+}
+
+function nextQuestion() { currentQ++; renderQuestion(); }
+
+function restartExercise() {
+  document.getElementById('complete-screen').classList.remove('show');
+  document.getElementById('exercise-container').style.display = 'block';
+  document.getElementById('progress-bar').style.width = '33%';
+  document.getElementById('pct-text').textContent = '33%';
+  initExercise();
+}
+
+function updateScoreDisplay() {
+  document.getElementById('score-display').textContent = `Puntos: ${score} / ${Math.min(currentQ, questions.length)}`;
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('send-btn');
+  const msg = input.value.trim();
+  if (!msg) return;
+  appendMsg('user', msg);
+  input.value = '';
+  sendBtn.disabled = true;
+  const typingId = appendTyping();
+  try {
+    const res = await fetch('/api/kawesqar', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({mensaje:msg}) });
+    removeTyping(typingId);
+    if (!res.ok) throw new Error('Error del servidor');
+    const data = await res.json();
+    appendMsg('ai', data.reply || 'No pude procesar tu consulta.');
+  } catch(err) {
+    removeTyping(typingId);
+    appendMsg('ai', 'Hubo un problema de conexión. Intenta de nuevo.');
   }
+  sendBtn.disabled = false;
+}
 
-  function playAudio(e, btn) {
-    e.stopPropagation();
-    btn.classList.add('playing');
-    // Simulate audio with speech synthesis
-    const word = btn.nextElementSibling.textContent;
-    if ('speechSynthesis' in window) {
-      const utt = new SpeechSynthesisUtterance(word);
-      utt.lang = 'es-CL';
-      utt.rate = 0.7;
-      utt.pitch = 0.9;
-      utt.onend = () => btn.classList.remove('playing');
-      speechSynthesis.speak(utt);
-    } else {
-      setTimeout(() => btn.classList.remove('playing'), 1200);
-    }
-  }
+function appendMsg(role, text) {
+  const area = document.getElementById('chat-area');
+  const div = document.createElement('div');
+  div.className = `msg msg-${role}`;
+  div.innerHTML = `<div class="msg-avatar">${role==='user'?'tú':'✦'}</div><div class="msg-bubble">${text.replace(/\*(.*?)\*/g,'<em class="kawesqar-highlight">$1</em>').replace(/\n/g,'<br>')}</div>`;
+  area.appendChild(div);
+  area.scrollTop = area.scrollHeight;
+}
 
-  // ─── EXERCISE ───────────────────────────────────────────────
-  const questions = [
-    {
-      q: '¿Cómo se dice "agua" en Kawésqar?',
-      sub: 'El diccionario distingue varios tipos de agua según su uso',
-      opts: ['asqet', 'akčólai', 'háwes', 'aksánas'],
-      correct: 1,
-      nota: 'Correcto. Akčólai es el agua en sentido general. El agua potable se llama c\'afalái, una distinción que refleja el profundo conocimiento del entorno.'
-    },
-    {
-      q: '¿Qué animal es el "čekéja"?',
-      sub: 'Era una fuente esencial de alimento, aceite y piel',
-      opts: ['Ballena', 'Águila', 'Lobo marino', 'Albatros'],
-      correct: 2,
-      nota: 'Correcto. El lobo marino (čekéja) era fundamental para la subsistencia Kawésqar. Su caza requería el arpón, llamado k\'ásqar.'
-    },
-    {
-      q: '"Kehéna" significa…',
-      sub: 'Un vínculo esencial en la vida comunitaria Kawésqar',
-      opts: ['Pescar', 'Amar', 'Navegar', 'Construir'],
-      correct: 1,
-      nota: 'Correcto. Amar (kehéna) era también una práctica de resiliencia: en entornos extremos, la cohesión del grupo era condición de sobrevivencia.'
-    },
-    {
-      q: '¿Cómo se dice "ballena" en Kawésqar?',
-      sub: 'El animal más imponente del universo Kawésqar',
-      opts: ['čekéja', 'arresárrok', 'aqtašal', 'čéjes'],
-      correct: 2,
-      nota: 'Correcto. Aqtašal, la ballena varada, representaba una fuente extraordinaria de alimento que convocaba a toda la comunidad.'
-    },
-    {
-      q: '"Aksánas" es la palabra Kawésqar para…',
-      sub: 'El hogar flotante del pueblo nómada del mar',
-      opts: ['Fuego', 'Canoa', 'Casa', 'Arpón'],
-      correct: 1,
-      nota: 'Correcto. La aksánas era construida con corteza de árbol (árka) y era el verdadero hogar de la familia Kawésqar durante sus travesías.'
-    },
-    {
-      q: '¿Qué significa "kstaf"?',
-      sub: 'Dictaba cuándo era seguro navegar los canales',
-      opts: ['Lluvia', 'Nieve', 'Viento', 'Niebla'],
-      correct: 2,
-      nota: 'Correcto. El viento (kstaf) era determinante para la navegación. Los Kawésqar desarrollaron un profundo conocimiento de los patrones climáticos de la Patagonia.'
-    },
-    {
-      q: '"Akiepéna" es el nombre Kawésqar del…',
-      sub: 'Un fenómeno visual que tenía significado especial en su cosmovisión',
-      opts: ['Cometa', 'Arcoíris', 'Relámpago', 'Amanecer'],
-      correct: 1,
-      nota: 'Correcto. El arcoíris (akiepéna) era parte de la cosmovisión Kawésqar. El diccionario registra también la variante ak\'iepéna.'
-    },
-    {
-      q: '¿Cómo se dice "remar" en Kawésqar?',
-      sub: 'La habilidad más fundamental para sobrevivir en los canales',
-      opts: ['jémo', 'asá', 'kehéna', 'kčewéskar'],
-      correct: 0,
-      nota: 'Correcto. Remar (jémo) era la habilidad central de la vida Kawésqar. Hombres, mujeres y niños dominaban esta destreza desde temprana edad.'
-    }
-  ];
+function appendTyping() {
+  const area = document.getElementById('chat-area');
+  const id = 'typing-' + Date.now();
+  const div = document.createElement('div');
+  div.className = 'msg msg-ai'; div.id = id;
+  div.innerHTML = `<div class="msg-avatar">✦</div><div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>`;
+  area.appendChild(div); area.scrollTop = area.scrollHeight;
+  return id;
+}
 
-  let currentQ = 0;
-  let score = 0;
-  let exerciseInitialized = false;
+function removeTyping(id) { const el = document.getElementById(id); if(el) el.remove(); }
 
-  function initExercise() {
-    exerciseInitialized = true;
-    currentQ = 0;
-    score = 0;
-    renderQuestion();
-  }
-
-  function renderQuestion() {
-    const container = document.getElementById('exercise-container');
-    const completeScreen = document.getElementById('complete-screen');
-
-    if (currentQ >= questions.length) {
-      container.style.display = 'none';
-      completeScreen.classList.add('show');
-      document.getElementById('complete-sub').textContent =
-        `Respondiste ${score} de ${questions.length} correctamente. ¡Sigues aprendiendo Kawésqar!`;
-      updateProgress(66);
-      return;
-    }
-
-    const q = questions[currentQ];
-    updateScoreDisplay();
-
-    container.style.display = 'block';
-    container.innerHTML = `
-      <div class="exercise-question">${q.q}</div>
-      <p class="exercise-sub">${q.sub}</p>
-      <div class="options-grid">
-        ${q.opts.map((o, i) => `
-          <button class="option-btn" onclick="selectAnswer(${i})">${o}</button>
-        `).join('')}
-      </div>
-      <div class="feedback" id="feedback"></div>
-      <button class="next-btn" id="next-btn" onclick="nextQuestion()">
-        ${currentQ < questions.length - 1 ? 'Siguiente →' : 'Ver resultado'}
-      </button>
-    `;
-  }
-
-  function selectAnswer(idx) {
-    const q = questions[currentQ];
-    const btns = document.querySelectorAll('.option-btn');
-    const feedback = document.getElementById('feedback');
-    const nextBtn = document.getElementById('next-btn');
-
-    btns.forEach(b => b.disabled = true);
-
-    if (idx === q.correct) {
-      btns[idx].classList.add('correct');
-      feedback.textContent = '✓ ' + (q.nota || 'Correcto.');
-      feedback.className = 'feedback show ok';
-      score++;
-    } else {
-      btns[idx].classList.add('wrong');
-      btns[q.correct].classList.add('correct');
-      feedback.textContent = '✗ La respuesta correcta es: ' + q.opts[q.correct];
-      feedback.className = 'feedback show fail';
-    }
-
-    nextBtn.classList.add('show');
-    updateScoreDisplay();
-  }
-
-  function getCulturalNote(i) {
-    const notes = [
-      'El fuego era tan sagrado que lo llevaban encendido en la canoa.',
-      'La aksánas era el hogar de toda la familia en sus viajes.',
-      'El asqet era su territorio y sustento durante miles de años.',
-      'Nombrarse a sí mismos como "personas del mar" revela su profunda identidad oceánica.'
-    ];
-    return notes[i] || '';
-  }
-
-  function nextQuestion() {
-    currentQ++;
-    renderQuestion();
-  }
-
-  function restartExercise() {
-    document.getElementById('complete-screen').classList.remove('show');
-    document.getElementById('exercise-container').style.display = 'block';
-    initExercise();
-    updateProgress(33);
-  }
-
-  function updateScoreDisplay() {
-    document.getElementById('score-display').textContent =
-      `Puntos: ${score} / ${Math.min(currentQ, questions.length)}`;
-  }
-
-  function updateProgress(val) {
-    document.getElementById('progress-bar').style.width = val + '%';
-    document.getElementById('pct-text').textContent = val + '%';
-  }
-
-  // ─── AI CHAT ────────────────────────────────────────────────
-  const SYSTEM_PROMPT = `Eres un asistente de aprendizaje de la lengua Kawésqar, basado en el Diccionario Conciso Español-Kawésqar de Oscar E. Aguilera F. y José S. Tonko P. (CONADI, 2005), compilado directamente con hablantes competentes.
-
-Tu rol es ayudar a aprender el Kawésqar de forma accesible y respetuosa. Responde siempre en español incluyendo las palabras Kawésqar relevantes en cursiva.
-
-VOCABULARIO VALIDADO DEL DICCIONARIO (úsalo con precisión):
-- kawésqar = persona, ser humano del mar (nombre del pueblo y la lengua)
-- aksánas = canoa (construida con corteza de árbol)
-- háwes = fuego (mantenido encendido incluso dentro de la canoa)
-- asqet = mar
-- akčólai = agua (en general); c'afalái = agua potable
-- kstaf = viento
-- akiás = lluvia
-- asói = nieve
-- akiepéna = arcoíris (var. ak'iepéna)
-- árka = árbol (su corteza se usaba para la canoa)
-- lafar = isla
-- qolaf = tierra firme
-- čekéja = lobo marino
-- aqtašal = ballena
-- čéjes = águila (var. c'ejes)
-- arresárrok = albatros
-- kepčelotejóxar = almeja
-- at = casa
-- c'errásqe = cuchillo
-- k'ásqar = arpón
-- awélqe = ropa
-- kstékies = hombre
-- kčái = mujer (también: no gustar, desagradar — la lengua es polisintética)
-- kúkta = niño
-- apánap = abuelo paterno
-- kehéna = amar
-- asá = comer
-- jémo = remar
-- kčewéskar = pescar
-- kanána = morir
-- lafk = ahora, actualmente
-- arkós = adulto
-- at = casa, acampar
-- álai / álæs = alzar, trabajar
-
-IMPORTANTE: Si no conoces una palabra, indícalo claramente. Nunca inventes términos Kawésqar. Esta es una lengua en peligro crítico de desaparición con menos de 10 hablantes vivos — la precisión es un acto de respeto cultural.
-
-Responde de forma concisa (máximo 3 oraciones), educativa y con calidez cultural. Cuando sea relevante, menciona que la fuente es el diccionario de Aguilera y Tonko (2005).`;
-
-  async function sendMessage() {
-    const input = document.getElementById('chat-input');
-    const sendBtn = document.getElementById('send-btn');
-    const msg = input.value.trim();
-    if (!msg) return;
-
-    appendMsg('user', msg);
-    input.value = '';
-    sendBtn.disabled = true;
-
-    const typingId = appendTyping();
-
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mensaje: msg })
-      removeTyping(typingId);
-
-      const data = await response.json();
-      const text = data.respuesta || 'No pude procesar tu consulta. Intenta de nuevo.';
-      appendMsg('ai', text);
-
-    } catch (err) {
-      removeTyping(typingId);
-      appendMsg('ai', 'Hubo un problema de conexión. En la versión completa, el asistente responde con información validada por hablantes Kawésqar.');
-    }
-
-    sendBtn.disabled = false;
-  }
-
-  function appendMsg(role, text) {
-    const area = document.getElementById('chat-area');
-    const div = document.createElement('div');
-    div.className = `msg msg-${role}`;
-    div.innerHTML = `
-      <div class="msg-avatar">${role === 'user' ? 'tú' : '✦'}</div>
-      <div class="msg-bubble">${text.replace(/\*(.*?)\*/g, '<em class="kawesqar-highlight">$1</em>')}</div>
-    `;
-    area.appendChild(div);
-    area.scrollTop = area.scrollHeight;
-  }
-
-  function appendTyping() {
-    const area = document.getElementById('chat-area');
-    const id = 'typing-' + Date.now();
-    const div = document.createElement('div');
-    div.className = 'msg msg-ai';
-    div.id = id;
-    div.innerHTML = `
-      <div class="msg-avatar">✦</div>
-      <div class="msg-bubble">
-        <div class="typing-indicator">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-        </div>
-      </div>
-    `;
-    area.appendChild(div);
-    area.scrollTop = area.scrollHeight;
-    return id;
-  }
-
-  function removeTyping(id) {
-    const el = document.getElementById(id);
-    if (el) el.remove();
-  }
-
-  // Enter key
-  document.getElementById('chat-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') sendMessage();
-  });
+document.getElementById('chat-input').addEventListener('keydown', e => { if(e.key==='Enter') sendMessage(); });
 </script>
 </body>
 </html>
